@@ -1,0 +1,29 @@
+.todoApp {
+  padding: 20px;
+
+  font-family: Arial, sans-serif;
+  text-align: center;
+
+}
+
+.title {
+  margin-bottom: 20px;
+
+  font-size: 44px;
+
+  color: var(--color-1)
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.todoLists {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+}
