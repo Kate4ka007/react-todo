@@ -21,4 +21,13 @@
   background-color: var(--color-3);
 }
 
+@media (max-width: 600px) {
+  .button {
+    padding: 4px 6px;
+    min-width: fit-content;
+
+    font-size: 14px;
+  }
+}
+
 
