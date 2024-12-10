@@ -1,28 +1,11 @@
-.button {
-  margin: 0 5px;
-  padding: 8px 16px;
+.todoFilters {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 
-  color: var(--color-5);
-  background: var(--color-4);
-  border: 1px solid var(--color-4);
-  border-radius: 16px;
-
-  outline: none;
-  appearance: none;
+  margin-bottom: 24px;
 }
 
-.button:hover:not(.active) {
-  color: var(--color-4);
-  background: var(--color-5);
-  border-color: var(--color-2);
 
-  cursor: pointer;
-}
 
-.active {
-  color: var(--color-4);
-  background: var(--color-5);
-  border-color: var(--color-2);
-
-  opacity: 0.7;
-}
