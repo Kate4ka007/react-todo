@@ -1,7 +1,9 @@
-import React from 'react';
-import { Todo } from '../../types';
-import styles from './TodoItem.module.css';
-import clsx from 'clsx';
+import clsx from "clsx";
+import React from "react";
+
+import { Todo } from "../../types";
+import { DeleteButton } from "../CloseButton/DeleteButton.tsx";
+import styles from "./TodoItem.module.css";
 
 interface Props {
   todo: Todo;
@@ -10,22 +12,29 @@ interface Props {
 }
 
 export const TodoItemTestIds = {
-  input: 'TodoItem_input_test-id',
-  text: 'TodoItem_text_test-id',
-  deleteButton: 'TodoItem_delete_button_test-id',
+  input: "TodoItem_input_test-id",
+  text: "TodoItem_text_test-id",
+  deleteButton: "TodoItem_delete_button_test-id",
 };
 
 const TodoItem: React.FC<Props> = ({ todo, toggleTodo, deleteTodo }) => (
-  <div className={clsx(styles.todoItem, { [styles.completed]: todo.completed })}>
+  <li className={clsx(styles.todoItem, { [styles.completed]: todo.completed })}>
     <input
-      data-testid={TodoItemTestIds.input}
-      type="checkbox"
       checked={todo.completed}
+      className={styles.input}
+      data-testid={TodoItemTestIds.input}
       onChange={() => toggleTodo(todo.id)}
+      type="checkbox"
     />
-    <span data-testid={TodoItemTestIds.text}>{todo.text}</span>
-    <button  data-testid={TodoItemTestIds.deleteButton} onClick={() => deleteTodo(todo.id)}>Delete</button>
-  </div>
+    <span className={styles.text} data-testid={TodoItemTestIds.text}>
+      {todo.text}
+    </span>
+    <DeleteButton
+      className={styles.itemButton}
+      data-testid={TodoItemTestIds.deleteButton}
+      onClick={() => deleteTodo(todo.id)}
+    />
+  </li>
 );
 
 export default TodoItem;

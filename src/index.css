@@ -1,12 +1,17 @@
 :root {
   font-size: 16px;
-  width: 100%;
 
   --color-1: #001b31;
   --color-2: #004063;
   --color-3: #0070a0;
   --color-4: #00ace7;
   --color-5: #efefef;
+}
+
+#root {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
 }
 
 * {
@@ -18,8 +23,9 @@
 body {
   margin: 0;
   display: flex;
-  max-width: 1440px;
+  width: 100%;
   min-height: 100vh;
+
   color: var(--color-1);
   background: var(--color-5);
 }

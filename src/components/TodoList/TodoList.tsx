@@ -1,18 +1,20 @@
-import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import TodoItem from '../TodoItem/TodoItem.tsx';
-import TodoFilters from '../TodoFilters/TodoFilters.tsx';
-import { Todo, TodoListData } from '../../types';
-import { v4 as uuidv4 } from 'uuid';
-import styles from './TodoList.module.css';
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { v4 as uuidv4 } from "uuid";
+
+import { Todo, TodoListData } from "../../types";
+import { Button } from "../Button/Button.tsx";
+import { DeleteButton } from "../CloseButton/DeleteButton.tsx";
+import TodoFilters from "../TodoFilters/TodoFilters.tsx";
+import TodoItem from "../TodoItem/TodoItem.tsx";
+import styles from "./TodoList.module.css";
 
 export const TodoListTestIds = {
-  input: 'TodoList_input_test-id',
-  title: 'TodoList_title_test-id',
-  deleteButton: 'TodoList_delete_button_test-id',
-  addButton: 'TodoList_add_button_test-id'
+  input: "TodoList_input_test-id",
+  title: "TodoList_title_test-id",
+  deleteButton: "TodoList_delete_button_test-id",
+  addButton: "TodoList_add_button_test-id",
 };
-
 
 interface Props {
   list: TodoListData;
@@ -20,9 +22,8 @@ interface Props {
   deleteTodoList: (id: string) => void;
 }
 
-
 const TodoList: React.FC<Props> = ({ list, updateTodoList, deleteTodoList }) => {
-  const [filter, setFilter] = useState<'all' | 'active' | 'completed'>('all');
+  const [filter, setFilter] = useState<"all" | "active" | "completed">("all");
   const { register, handleSubmit, reset } = useForm<{ text: string }>();
 
   const addTodo = (data: { text: string }) => {
@@ -32,50 +33,62 @@ const TodoList: React.FC<Props> = ({ list, updateTodoList, deleteTodoList }) => 
   };
 
   const toggleTodo = (id: string) => {
-    const updatedTodos = list.todos.map(todo =>
-      todo.id === id ? { ...todo, completed: !todo.completed } : todo
-    );
+    const updatedTodos = list.todos.map((todo) => (todo.id === id ? { ...todo, completed: !todo.completed } : todo));
     updateTodoList(list.id, { ...list, todos: updatedTodos });
   };
 
   const deleteTodo = (id: string) => {
-    const updatedTodos = list.todos.filter(todo => todo.id !== id);
+    const updatedTodos = list.todos.filter((todo) => todo.id !== id);
     updateTodoList(list.id, { ...list, todos: updatedTodos });
   };
 
-  const filteredTodos = list.todos.filter(todo => {
-    if (filter === 'active') return !todo.completed;
-    if (filter === 'completed') return todo.completed;
+  const filteredTodos = list.todos.filter((todo) => {
+    if (filter === "active") {
+      return !todo.completed;
+    }
+    if (filter === "completed") {
+      return todo.completed;
+    }
     return true;
   });
 
   return (
     <div className={styles.todoList}>
-      <h2 data-testid={TodoListTestIds.title}>{list.title}</h2>
-      <button data-testid={TodoListTestIds.deleteButton} onClick={() => deleteTodoList(list.id)}>Delete List</button>
+      <div className={styles.listHeader}>
+        <h2 className={styles.title} data-testid={TodoListTestIds.title}>
+          {list.title}
+        </h2>
+        <DeleteButton data-testid={TodoListTestIds.deleteButton} onClick={() => deleteTodoList(list.id)} />
+      </div>
 
-      <form onSubmit={handleSubmit(addTodo)}>
+      <form className={styles.form} onSubmit={handleSubmit(addTodo)}>
         <input
+          className={styles.input}
           data-testid={TodoListTestIds.input}
-          type="text"
           placeholder="Add a new todo"
-          {...register('text', { required: true })}
+          type="text"
+          {...register("text", { required: true })}
         />
-        <button data-testid={TodoListTestIds.addButton} type="submit">Add</button>
+        <Button data-testid={TodoListTestIds.addButton} type="submit">
+          Add
+        </Button>
       </form>
 
-      <TodoFilters currentFilter={filter} setFilter={setFilter} />
+      {list.todos.length > 0 && <TodoFilters currentFilter={filter} setFilter={setFilter} />}
 
-      {filteredTodos.map(todo => (
-        <TodoItem
-          key={todo.id}
-          todo={todo}
-          toggleTodo={toggleTodo}
-          deleteTodo={deleteTodo}
-        />
-      ))}
+      <ul className={styles.list}>
+        {filteredTodos.map((todo) => (
+          <TodoItem deleteTodo={deleteTodo} key={todo.id} todo={todo} toggleTodo={toggleTodo} />
+        ))}
+      </ul>
     </div>
   );
 };
 
-export default TodoList;
+export default React.memo(
+  TodoList,
+  (prevProps, nextProps) =>
+    prevProps.list === nextProps.list &&
+    prevProps.updateTodoList === nextProps.updateTodoList &&
+    prevProps.deleteTodoList === nextProps.deleteTodoList,
+);
