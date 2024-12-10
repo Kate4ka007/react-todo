@@ -1,20 +1,19 @@
 .button {
-  margin: 0 5px;
   padding: 8px 16px;
+  margin: 0 5px;
 
   color: var(--color-5);
+  appearance: none;
   background: var(--color-4);
   border: none;
   border-radius: 4px;
 
   outline: none;
-  appearance: none
 }
 
 .button:hover:not(.active) {
-  background-color: var(--color-3);
-
   cursor: pointer;
+  background-color: var(--color-3);
 }
 
 .active {
@@ -23,11 +22,9 @@
 
 @media (max-width: 600px) {
   .button {
-    padding: 4px 6px;
     min-width: fit-content;
+    padding: 4px 6px;
 
     font-size: 14px;
   }
 }
-
-

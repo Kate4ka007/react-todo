@@ -1,17 +1,17 @@
 .todoItem {
   display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-  padding: 10px 16px;
   gap: 16px;
+  align-items: center;
+  padding: 10px 16px;
+  margin-bottom: 10px;
 
   border: none;
   border-bottom: 1px solid #ccc;
 }
 
 .todoItem.completed span {
-  text-decoration: line-through;
   color: #acacac;
+  text-decoration: line-through;
 }
 
 .input {
@@ -21,15 +21,14 @@
 }
 
 .text {
+  display: inline-block;
+  max-width: 100%;
+  text-align: left;
   word-break: break-word;
   overflow-wrap: break-word;
   white-space: normal;
-  max-width: 100%;
-  display: inline-block;
-  text-align: left;
 }
 
 .itemButton {
   margin-left: auto;
 }
-

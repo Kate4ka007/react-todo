@@ -1,9 +1,9 @@
 .todoList {
   display: flex;
   flex-direction: column;
-  padding: 10px;
   width: 100%;
   max-width: 600px;
+  padding: 10px;
 
   font-size: 16px;
 
@@ -18,26 +18,26 @@
 }
 
 .title {
+  display: inline-block;
+  max-width: calc(100% - 36px);
   margin-bottom: 10px;
+  overflow: hidden;
 
   font-size: 24px;
 
   color: var(--color-1);
+  text-overflow: ellipsis;
 
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: calc(100% - 36px);
-  display: inline-block;
   vertical-align: middle;
 }
 
 .form {
   display: flex;
-  margin-bottom: 10px;
   gap: 10px;
   width: fit-content;
   max-width: 100%;
+  margin-bottom: 10px;
 }
 
 @media (max-width: 600px) {
@@ -47,9 +47,9 @@
 }
 
 .input {
-  padding: 10px;
   width: 400px;
   max-width: 100%;
+  padding: 10px;
 
   font-size: 16px;
 
